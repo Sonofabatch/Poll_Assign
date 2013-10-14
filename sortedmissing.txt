@@ -1,0 +1,44 @@
+
+---------- MISSING.TXT
+    59  VA   M    X  X
+    76  KY   M    X  X
+    98  KY   M    X  X
+   109  SC   M    X  X
+   228  NC   M    X  X
+   236  TN   M    X  X
+   333  WV   M    X  X
+   386  MI   M
+   420  OH  @        X  X
+   444  VA   M    X  X
+   530  VT           X  X
+   589  TX   M    X  X
+   599  AL   M
+   609  AL   M    X  X
+   685  MS   M    X  X
+   701  GA   M    X  X
+   713  GA   M    X
+   739  GA   M    X  X
+   751  MS   M    X  X
+   782  NC   M    X  X
+   810  OK   M    X  X
+   818  SC   M    X  X
+   827  MI   M    X  X
+   861  KY   M    X  X
+   912  OH   M    X  X
+   969  NC   M    X  X
+  1007  LA   M    X
+  1072  MS   M    X  X
+  1099  LA   M    X
+  1171  AL   M    X  X
+  1224  OH   M    X
+  1270  NC   M    X  X
+  1293  WV   M    X  X
+  1325  GA   M    X  X
+  1395  SC   M    X  X
+  1408  NM   M    X  X
+  1415  VA   M    X  X
+  1465  SC   M    X  X
+  1513  AZ   M    X  X
+  1533  MS   M    X  X
+  1541  CO   M    X  X
+  1586  NY   M    X  X
