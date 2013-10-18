@@ -123,7 +123,7 @@ IF %var1%==-s (
 GOTO end
 
 :FoundCheck
-IF %strfound%==0 CALL :output 0
+IF %strfound%==0 CALL :output 77
 GOTO :eof
 
 :SkipPrint
