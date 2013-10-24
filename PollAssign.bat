@@ -158,10 +158,18 @@ IF errorlevel 1 goto ParseReports
 GOTO end
 
 :output
-IF %1 LSS 10 (
-	ECHO 1%1 !_newline!>> output.txt
+IF %1 GTR 8 (
+	ECHO 2%1 !_newline!>> output.txt
 ) ELSE (
-	ECHO 2%1!_newline!>> output.txt)
+	IF %1 GEQ 5 (
+		ECHO 7%1 !_newline!>> output.txt
+	) ELSE (
+		IF %1==4 ECHO 4%1 !_newline!>> output.txt
+		IF %1==3 ECHO 6%1 !_newline!>> output.txt
+		IF %1==2 ECHO 5%1 !_newline!>> output.txt
+		IF %1==1 ECHO 3%1 !_newline!>> output.txt
+	)
+)
 SET strfound=1
 GOTO :eof
 
