@@ -213,7 +213,7 @@ ECHO.
 ECHO 1. Continue with existing reports
 ECHO 2. Continue and replace reports
 ECHO 3. Abort
-CHOICE /C:123 /N "Enter Selection: "
+CHOICE /C:123 /N /M "Enter Selection: "
 IF errorlevel 3 goto end
 IF errorlevel 2 GOTO DateCheck
 IF errorlevel 1 goto FindReplaceStoreNumber
