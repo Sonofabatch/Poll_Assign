@@ -15,7 +15,7 @@ ECHO    %CorrectDate%     STORES MISSED>>poll_report.txt
 ECHO.>>poll_report.txt
 
 IF %DoW%==Fri GOTO FridayFail
-IF NOT EXIST %Year%-%Month%-%Day%_strnotpol.csv GOTO MiniPollMissing
+IF NOT EXIST ..\%Year%-%Month%-%Day%_strnotpol.csv (GOTO MiniPollMissing) ELSE (Copy ..\%Year%-%Month%-%Day%_strnotpol.csv %Year%-%Month%-%Day%_strnotpol.csv)
 
 :MiniPollCheck
 FOR /F "skip=1 tokens=1 delims=&&" %%F IN (pollreport.txt) DO (
