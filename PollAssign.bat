@@ -1,8 +1,5 @@
 @ECHO OFF
 setlocal EnableDelayedExpansion
-SET RPTDIR="G:\mclist\DATA\CURRENT\"
-SET SLSDIR="P:\Misc\bsnuggs\"
-SET WRKDIR="C:\Users\rbeaman\Documents\Current Polling Reports\"
 REM Testing values
 REM	SET RPTDIR="H:\Portable Apps\Documents\CURRENT\"
 REM	SET SLSDIR="H:\Portable Apps\Documents\list\"
@@ -13,21 +10,16 @@ SET Month=%Today:~-10,2%
 SET Day=%Today:~-7,2%
 SET CorrectDate=%Month%/%Day%/%Year%
 SET DateCheckPassed=0
+SET RPTDIR="G:\mclist\DATA\CURRENT\"
+SET SLSDIR="P:\Misc\bsnuggs\"
+SET WRKDIR="C:\Users\rbeaman\Documents\Current Polling Reports\%Year%%Month%%Day%\"
 SET AppDir=%CD%
 IF NOT EXIST %WRKDIR%%Year%%Month%%Day% MD %WRKDIR%%Year%%Month%%Day%
 SET /a retryCount=0
 IF %1.==. (SET var1=NULL) ELSE (SET var1=%1)
 
 
-REM Debugging
-REM ECHO Report directory is %RPTDIR%
-REM ECHO Store List is located in %SLSDIR%
-REM ECHO Working directory is %WRKDIR%
-REM ECHO Today is %CorrectDate%
-REM ECHO App directory is %AppDir%
-REM ECHO Variable Parameter 1 is %var1%
-
-IF EXIST %WRKDIR%%Year%%Month%%Day%\TOTALS.RPT GOTO SecondRun
+IF EXIST %WRKDIR%\TOTALS.RPT GOTO SecondRun
 
 
 :DateCheck
@@ -48,20 +40,11 @@ IF %DateCheckPassed%==1 (
 ECHO Date is current. Parsing Reports.
 IF EXIST %SLSDIR%storelist.txt (Copy %SLSDIR%storelist.txt %WRKDIR%storelist.txt) ELSE (GOTO noSTRLST)
 IF EXIST DATETIME.RPT (Copy DATETIME.RPT %WRKDIR%DATETIME.RPT) ELSE (GOTO noDTRPT)
-IF EXIST MISSING.RPT (
-	Copy MISSING.RPT %WRKDIR%MISSING.RPT
-	Copy MISSING.RPT %WRKDIR%%Year%%Month%%Day%\MISSING.RPT
-) ELSE (GOTO noMISRPT)
-IF EXIST STRDMISS.RPT (
-	Copy STRDMISS.RPT %WRKDIR%STRDMISS.RPT
-	Copy STRDMISS.RPT %WRKDIR%%Year%%Month%%Day%\STRDMISS.RPT
-) ELSE (GOTO noDOSRPT)
-IF EXIST STRWMISS.RPT (
-	Copy STRWMISS.RPT %WRKDIR%STRWMISS.RPT
-	Copy STRWMISS.RPT %WRKDIR%%Year%%Month%%Day%\STRWMISS.RPT
-) ELSE (GOTO noWINRPT)
-IF EXIST PCTICK.RPT Copy PCTICK.RPT %WRKDIR%%Year%%Month%%Day%\PCTICK.RPT
-IF EXIST PCTSAL.RPT Copy PCTSAL.RPT %WRKDIR%%Year%%Month%%Day%\PCTSAL.RPT
+IF EXIST MISSING.RPT (Copy MISSING.RPT %WRKDIR%MISSING.RPT) ELSE (GOTO noMISRPT)
+IF EXIST STRDMISS.RPT (Copy STRDMISS.RPT %WRKDIR%STRDMISS.RPT) ELSE (GOTO noDOSRPT)
+IF EXIST STRWMISS.RPT (Copy STRWMISS.RPT %WRKDIR%STRWMISS.RPT) ELSE (GOTO noWINRPT)
+IF EXIST PCTICK.RPT Copy PCTICK.RPT %WRKDIR%PCTICK.RPT
+IF EXIST PCTSAL.RPT Copy PCTSAL.RPT %WRKDIR%PCTSAL.RPT
 Copy TOTALS.RPT %WRKDIR%%Year%%Month%%Day%\TOTALS.RPT
 CD /D %WRKDIR%
 IF EXIST pollreport.txt DEL pollreport.txt
@@ -219,7 +202,12 @@ IF errorlevel 2 GOTO DateCheck
 IF errorlevel 1 goto FindReplaceStoreNumber
 GOTO end
 
+:ErrorAlreadyRunning
+ECHO "ErrorAlreadyRunning"
+PAUSE
+GOTO end
+
 :End
 CD /D %AppDir%
-Copy poll_report.txt %WRKDIR%%Year%%Month%%Day%\poll_report.txt
+Copy poll_report.txt %WRKDIR%poll_report.txt
 endlocal
