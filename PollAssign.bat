@@ -14,7 +14,7 @@ SET RPTDIR="G:\mclist\DATA\CURRENT\"
 SET SLSDIR="P:\Misc\bsnuggs\"
 SET WRKDIR="C:\Users\rbeaman\Documents\Current Polling Reports\%Year%%Month%%Day%\"
 SET AppDir=%CD%
-IF NOT EXIST %WRKDIR%%Year%%Month%%Day% MD %WRKDIR%%Year%%Month%%Day%
+IF NOT EXIST %WRKDIR% MD %WRKDIR%
 SET /a retryCount=0
 IF %1.==. (SET var1=NULL) ELSE (SET var1=%1)
 
@@ -45,7 +45,7 @@ IF EXIST STRDMISS.RPT (Copy STRDMISS.RPT %WRKDIR%STRDMISS.RPT) ELSE (GOTO noDOSR
 IF EXIST STRWMISS.RPT (Copy STRWMISS.RPT %WRKDIR%STRWMISS.RPT) ELSE (GOTO noWINRPT)
 IF EXIST PCTICK.RPT Copy PCTICK.RPT %WRKDIR%PCTICK.RPT
 IF EXIST PCTSAL.RPT Copy PCTSAL.RPT %WRKDIR%PCTSAL.RPT
-Copy TOTALS.RPT %WRKDIR%%Year%%Month%%Day%\TOTALS.RPT
+Copy TOTALS.RPT %WRKDIR%\TOTALS.RPT
 CD /D %WRKDIR%
 IF EXIST pollreport.txt DEL pollreport.txt
 
@@ -91,7 +91,7 @@ ECHO (%missed%)
 TYPE STRDMISS.RPT > pollreport.txt
 TYPE pollreportwin.txt >> pollreport.txt
 DEL pollreportwin.txt
-CALL minipoll.bat
+CALL ..\minipoll.bat
 IF %var1%==-s (
 	ECHO Printing skipped as a result of user flag.
 	GOTO SkipPrint
@@ -122,9 +122,11 @@ ping -n 2 127.0.0.1>nul
 write.exe /p MISSING.RPT
 ECHO Printing MISSING.RPT
 ping -n 2 127.0.0.1>nul
-CALL missingsort.bat
+CALL ..\missingsort.bat
+IF EXIST sortedmissting.txt (
 notepad.exe /p sortedmissing.txt
 ECHO Printing sortedmissing.txt
+) ELSE (ECHO No sortedmissing.txt found. Nothing to print.)
 PAUSE
 GOTO End
 
