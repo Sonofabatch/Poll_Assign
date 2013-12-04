@@ -96,13 +96,30 @@ IF %var1%==-s (
 	ECHO Printing skipped as a result of user flag.
 	GOTO SkipPrint
 ) ELSE (
-	notepad.exe /p poll_report.txt
-	ECHO Printing poll_report.txt) 
-	ECHO.
-	ECHO.
-	CHOICE /C:YN /t 30 /d Y /M "Print Missing and Date&Time? "
-	IF errorlevel 2 goto SkipPrint
-	IF errorlevel 1 goto PrintExtras
+	IF %var1%==-v (
+		ECHO Will open reports for display instead of printing.
+		notepad.exe poll_report.txt
+		ping -n 5 127.0.0.1>nul
+		write.exe DATETIME.RPT
+		ping -n 5 127.0.0.1>nul
+		write.exe MISSING.RPT
+		ping -n 5 127.0.0.1>nul
+		CALL ..\missingsort.bat
+		CD /D %WRKDIR%
+		IF EXIST sortedmissting.txt (
+			notepad.exe sortedmissing.txt
+			ECHO Displaying sortedmissing.txt
+		) ELSE (ECHO No sortedmissing.txt found. Nothing to show.)
+		PAUSE
+		GOTO End
+	) ELSE (
+		notepad.exe /p poll_report.txt
+		ECHO Printing poll_report.txt) 
+ECHO.
+ECHO.
+CHOICE /C:YN /t 30 /d Y /M "Print Missing and Date&Time? "
+IF errorlevel 2 goto SkipPrint
+IF errorlevel 1 goto PrintExtras
 GOTO end
 
 :FoundCheck
@@ -123,6 +140,7 @@ write.exe /p MISSING.RPT
 ECHO Printing MISSING.RPT
 ping -n 2 127.0.0.1>nul
 CALL ..\missingsort.bat
+CD %WRKDIR%
 IF EXIST sortedmissting.txt (
 notepad.exe /p sortedmissing.txt
 ECHO Printing sortedmissing.txt
