@@ -90,7 +90,7 @@ ECHO There were %missed% stores missed.
 ECHO (%missed%)
 TYPE STRDMISS.RPT > pollreport.txt
 TYPE pollreportwin.txt >> pollreport.txt
-DEL pollreportwin.txt
+REM DEL pollreportwin.txt
 CALL ..\minipoll.bat
 IF %var1%==-s (
 	ECHO Printing skipped as a result of user flag.
@@ -164,15 +164,15 @@ IF %1 GTR 9 (
 	ECHO 2%1 !_newline!>> output.txt
 ) ELSE (
 	IF %1==9 (
-		ECHO 1%1 !_newline!>> output.txt
+		ECHO 1 %1 !_newline!>> output.txt
 	) ELSE (
 		IF %1 GEQ 5 (
-			ECHO 7%1 !_newline!>> output.txt
+			ECHO 7 %1 !_newline!>> output.txt
 		) ELSE (
-			IF %1==4 ECHO 4%1 !_newline!>> output.txt
-			IF %1==3 ECHO 6%1 !_newline!>> output.txt
-			IF %1==2 ECHO 5%1 !_newline!>> output.txt
-			IF %1==1 ECHO 3%1 !_newline!>> output.txt
+			IF %1==4 ECHO 4 %1 !_newline!>> output.txt
+			IF %1==3 ECHO 6 %1 !_newline!>> output.txt
+			IF %1==2 ECHO 5 %1 !_newline!>> output.txt
+			IF %1==1 ECHO 3 %1 !_newline!>> output.txt
 		)
 	)
 )

@@ -48,7 +48,7 @@ SET /a strVal=%1
 SET /a pcVal=%3
 SET miniStore=%2
 SET pcNum=%3
-SET _minilineend=!_miniline:~9!
+SET _minilineend=!_miniline:~10!
 IF %strNum%==%miniStore% (
 	SET found=1
 	IF %strVal% LSS 10 (
@@ -68,8 +68,11 @@ IF %strNum%==%miniStore% (
 			)
 		)
 	)
-	IF %pcVal% LSS 10 SET spaces= !spaces!
-	SET _newminiline= !pcNum!!spaces!!strNum!*!_minilineend!
+	IF %pcVal% LSS 10 (
+		SET spaces= !spaces!
+		SET _newminiline=  !pcNum!!spaces!!strNum!*!_minilineend!
+	) ELSE (
+		SET _newminiline= !pcNum! !spaces!!strNum!*!_minilineend!)
 	IF !prevPC! LSS 0 SET /a prevPC=!pcNum!
 	IF NOT !prevPC!==!pcNum! ECHO.>>poll_report.txt
 	ECHO !_newminiline!>>poll_report.txt
