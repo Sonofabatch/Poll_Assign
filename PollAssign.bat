@@ -105,8 +105,7 @@ IF %var1%==-s (
 		write.exe MISSING.RPT
 		ping -n 5 127.0.0.1>nul
 		CALL ..\missingsort.bat
-		CD /D %WRKDIR%
-		IF EXIST sortedmissting.txt (
+		IF EXIST sortedmissing.txt (
 			notepad.exe sortedmissing.txt
 			ECHO Displaying sortedmissing.txt
 		) ELSE (ECHO No sortedmissing.txt found. Nothing to show.)
@@ -141,9 +140,9 @@ ECHO Printing MISSING.RPT
 ping -n 2 127.0.0.1>nul
 CALL ..\missingsort.bat
 CD %WRKDIR%
-IF EXIST sortedmissting.txt (
-notepad.exe /p sortedmissing.txt
-ECHO Printing sortedmissing.txt
+IF EXIST sortedmissing.txt (
+	notepad.exe /p sortedmissing.txt
+	ECHO Printing sortedmissing.txt
 ) ELSE (ECHO No sortedmissing.txt found. Nothing to print.)
 PAUSE
 GOTO End
@@ -229,5 +228,5 @@ GOTO end
 
 :End
 CD /D %AppDir%
-Copy poll_report.txt %WRKDIR%poll_report.txt
+REM Copy poll_report.txt %WRKDIR%poll_report.txt
 endlocal
